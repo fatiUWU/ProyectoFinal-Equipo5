@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLogística Veracruz - Mi Cuenta</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../PUBLIC/css/pedidos.css">
+</head>
+<body>
+
+    <div class="slide-container" style="display: flex; min-height: 100vh;">
+        
+        <aside class="sidebar" style="background: #1e4620; width: 260px; color: white;">
+            <div class="sidebar-logo" style="padding: 20px; font-weight: bold; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-basket-shopping" style="color: #6ee7b7;"></i>
+                <div class="brand-name">EcoMarket<span style="display:block; font-size:11px; color:#a7f3d0; font-weight:normal;">Cliente Sostenible</span></div>
+            </div>
+            <nav class="nav-menu" style="list-style: none; padding: 10px; display: flex; flex-direction: column; gap: 5px;">
+                <li><a href="inicioC.html" class="nav-item"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                <li><a href="crearP.html" class="nav-item"><i class="fa-solid fa-cart-plus"></i> Crear pedido</a></li>
+                <li><a href="misPedidosC.html" class="nav-item"><i class="fa-solid fa-box-open"></i> Mis pedidos</a></li>
+                <li><a href="miCuentaC.html" class="nav-item active" style="color: #6ee7b7; font-weight: bold;"><i class="fa-solid fa-user-gear"></i> Mi cuenta</a></li>
+            </nav>
+            <a href="login.html" class="logout-btn" style="margin-top: auto; color: #fee2e2; padding: 20px; display: block; text-decoration: none;"><i class="fa-solid fa-power-off"></i> Cerrar Sesión</a>
+        </aside>
+
+        <main class="main-content" style="flex: 1; padding: 30px; background: #f8fafc;">
+            <header class="order-header">
+                <h1 class="order-title" style="font-size: 26px; font-weight: bold; color: #1e293b; margin-bottom: 5px;">Mi Cuenta</h1>
+                <p style="color: #64748b; margin: 0 0 25px 0; font-size: 14px;">Administra tus datos personales y la seguridad de tu contraseña</p>
+            </header>
+
+            <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 25px; align-items: start;">
+                
+                <section style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); display: flex; flex-direction: column; gap: 15px;">
+                    <h2 style="font-size: 16px; font-weight: bold; margin: 0; color: #165b1c;"><i class="fa-solid fa-id-card"></i> Datos del Perfil</h2>
+                    <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 5px 0;">
+                    
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <span style="font-size: 12px; font-weight: bold; color: #64748b; text-transform: uppercase;">Nombre Completo</span>
+                        <div id="lblMiNombre" style="padding: 10px; background: #f8fafc; border-radius: 6px; font-weight: 500; color: #1e293b;">Cargando...</div>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <span style="font-size: 12px; font-weight: bold; color: #64748b; text-transform: uppercase;">Correo de Acceso</span>
+                        <div id="lblMiCorreo" style="padding: 10px; background: #f8fafc; border-radius: 6px; font-family: monospace; color: #1e293b;">Cargando...</div>
+                    </div>
+                </section>
+
+                <section style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+                    <h2 style="font-size: 16px; font-weight: bold; margin-bottom: 15px; color: #1e293b;"><i class="fa-solid fa-shield-halved"></i> Cambiar Contraseña</h2>
+                    
+                    <form id="formCambiarContra" style="display: flex; flex-direction: column; gap: 12px;">
+                        
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <label style="font-size: 13px; font-weight: 600; color: #475569;">Contraseña Actual</label>
+                            <div style="position: relative; display: flex; align-items: center;">
+                                <input type="password" id="txtContraActual" placeholder="Ingresa tu contraseña actual" style="width: 100%; padding: 10px 35px 10px 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box;" required>
+                                <i class="fa-solid fa-eye-slash toggle-eye" style="position: absolute; right: 10px; cursor: pointer; color: #94a3b8; font-size: 14px;"></i>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 5px;">
+                            <label style="font-size: 13px; font-weight: 600; color: #475569;">Nueva Contraseña</label>
+                            <div style="position: relative; display: flex; align-items: center;">
+                                <input type="password" id="txtNuevaContra" placeholder="Mínimo 6 caracteres" style="width: 100%; padding: 10px 35px 10px 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box;" required>
+                                <i class="fa-solid fa-eye-slash toggle-eye" style="position: absolute; right: 10px; cursor: pointer; color: #94a3b8; font-size: 14px;"></i>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <label style="font-size: 13px; font-weight: 600; color: #475569;">Confirmar Nueva Contraseña</label>
+                            <div style="position: relative; display: flex; align-items: center;">
+                                <input type="password" id="txtConfirmarContra" placeholder="Repite la nueva contraseña" style="width: 100%; padding: 10px 35px 10px 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box;" required>
+                                <i class="fa-solid fa-eye-slash toggle-eye" style="position: absolute; right: 10px; cursor: pointer; color: #94a3b8; font-size: 14px;"></i>
+                            </div>
+                        </div>
+
+                        <button type="submit" style="background: #165b1c; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 14px;">
+                            <i class="fa-solid fa-key"></i> Actualizar Credenciales
+                        </button>
+                    </form>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="../PUBLIC/js/miCuentaC.js"></script>
+    <script src="../PUBLIC/js/seguridad.js"></script>
+</body>
+</html>

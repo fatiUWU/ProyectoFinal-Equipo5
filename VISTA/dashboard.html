@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLogística Veracruz - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../PUBLIC/css/dashboard.css">
+</head>
+<body>
+
+    <div class="app-container" style="display: flex; min-height: 100vh;">
+        
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <i class="fa-solid fa-truck-fast"></i>
+                <div class="brand-name">EcoLogística<span>Veracruz</span></div>
+            </div>
+            <nav class="nav-menu">
+                <li><a href="dashboard.html" class="nav-item active"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                <li><a href="inventario.html" class="nav-item"><i class="fa-solid fa-clipboard-list"></i> Inventario</a></li>
+                <li><a href="crearP.html" class="nav-item"><i class="fa-solid fa-cart-shopping"></i> Crear pedido</a></li>
+                <li><a href="pedidos.html" class="nav-item"><i class="fa-solid fa-box"></i> Pedidos</a></li>
+                <li><a href="logistica.html" class="nav-item"><i class="fa-solid fa-truck"></i> Logística</a></li>
+                <li><a href="usuarios.html" class="nav-item"><i class="fa-solid fa-user-tie"></i> Conductores</a></li>
+                <li><a href="vehiculos.html" class="nav-item"><i class="fa-solid fa-truck-front"></i> Vehículos</a></li>
+                <li><a href="reportes.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Reportes</a></li>
+               <li><a href="facturacion.html" class="nav-item"><i class="fa-solid fa-file-invoice-dollar"></i> Nota de venta</a></li>
+            </nav>
+            <a href="login.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a>
+        </aside>
+
+        <main class="main-content" style="flex: 1; padding: 30px; background-color: #f8fafc;">
+            <header class="inventory-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <div>
+                    <h1 style="font-size: 28px; font-weight: bold; color: #1e293b; margin: 0;">¡Hola, Administrador!</h1>
+                    <p style="color: #64748b; margin: 5px 0 0 0;">Resumen general de operaciones</p>
+                </div>
+            </header>
+
+            <section class="kpi-container" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 35px;">
+                
+                <div class="kpi-card" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border-left: 4px solid #cbd5e1;">
+                    <div style="color: #64748b; font-size: 12px; font-weight: bold; text-transform: uppercase;">Pedidos Pendientes</div>
+                    <div id="kpiPendientes" style="font-size: 32px; font-weight: bold; margin: 10px 0; color: #1e293b;">0</div>
+                    <a href="pedidos.html" style="color: #165b1c; font-size: 13px; text-decoration: none; font-weight: 600;">Ver más →</a>
+                </div>
+
+                <div class="kpi-card" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border-left: 4px solid #10b981;">
+                    <div style="color: #64748b; font-size: 12px; font-weight: bold; text-transform: uppercase;">Entregas Hoy</div>
+                    <div id="kpiEntregas" style="font-size: 32px; font-weight: bold; margin: 10px 0; color: #1e293b;">0</div>
+                    <a href="pedidos.html" style="color: #165b1c; font-size: 13px; text-decoration: none; font-weight: 600;">Ver más →</a>
+                </div>
+
+                <div class="kpi-card" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border-left: 4px solid #3b82f6;">
+                    <div style="color: #64748b; font-size: 12px; font-weight: bold; text-transform: uppercase;">Productos en Stock</div>
+                    <div id="kpiTotalStock" style="font-size: 32px; font-weight: bold; margin: 10px 0; color: #1e293b;">0</div>
+                    <a href="inventario.html" style="color: #165b1c; font-size: 13px; text-decoration: none; font-weight: 600;">Ver más →</a>
+                </div>
+
+                <div class="kpi-card" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); border-left: 4px solid #f97316;">
+                    <div style="color: #64748b; font-size: 12px; font-weight: bold; text-transform: uppercase;">Alertas Stock Bajo</div>
+                    <div id="kpiAlertas" style="font-size: 32px; font-weight: bold; margin: 10px 0; color: #ef4444;">0</div>
+                    <a href="inventario.html" style="color: #ef4444; font-size: 13px; text-decoration: none; font-weight: 600;">Gestionar →</a>
+                </div>
+
+            </section>
+
+            <section class="custom-table-container" style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="font-size: 18px; font-weight: bold; color: #1e293b; margin: 0;">Pedidos recientes</h2>
+                    <a href="pedidos.html" style="color: #165b1c; font-size: 14px; text-decoration: none; font-weight: 600;">Ver todos los pedidos</a>
+                </div>
+
+                <table class="products-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                    <thead>
+                        <tr style="color: #475569; border-bottom: 2px solid #e2e8f0; font-size: 14px;">
+                            <th style="padding: 12px;">Pedido</th>
+                            <th style="padding: 12px;">Cliente</th>
+                            <th style="padding: 12px;">Fecha</th>
+                            <th style="padding: 12px;">Estado</th>
+                            <th style="padding: 12px;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaDashboardCuerpo"></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <script src="../PUBLIC/js/dashboard.js"></script>
+    <script src="../PUBLIC/js/seguridad.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLogística Veracruz - Control de Conductores</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../PUBLIC/css/pedidos.css">
+</head>
+<body>
+
+    <div class="slide-container" style="display: flex; min-height: 100vh;">
+        
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <i class="fa-solid fa-truck-fast"></i>
+                <div class="brand-name">EcoLogística<span>Veracruz</span></div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-item"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                <li><a href="inventario.html" class="nav-item"><i class="fa-solid fa-clipboard-list"></i> Inventario</a></li>
+                <li><a href="crearP.html" class="nav-item"><i class="fa-solid fa-cart-shopping"></i> Crear pedido</a></li>
+                <li><a href="pedidos.html" class="nav-item"><i class="fa-solid fa-box"></i> Pedidos</a></li>
+                <li><a href="logistica.html" class="nav-item"><i class="fa-solid fa-truck"></i> Logística</a></li>
+                <li><a href="usuarios.html" class="nav-item active"><i class="fa-solid fa-user-tie"></i> Conductores</a></li>
+                <li><a href="vehiculos.html" class="nav-item"><i class="fa-solid fa-truck-front"></i> Vehículos</a></li>
+                <li><a href="reportes.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Reportes</a></li>
+                 <li><a href="facturacion.html" class="nav-item"><i class="fa-solid fa-file-invoice-dollar"></i> Nota de venta</a></li>
+            </ul>
+            <a href="login.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a>
+        </aside>
+
+        <main class="main-content" style="flex: 1; padding: 30px; background: #f8fafc;">
+            <header class="order-header">
+                <h1 class="order-title" style="font-size: 26px; font-weight: bold; color: #1e293b; margin-bottom: 20px;">Control de Conductores</h1>
+            </header>
+
+            <div style="display: grid; grid-template-columns: 1fr 1.8fr; gap: 25px; align-items: start;">
+                
+                <section style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+                    <h2 style="font-size: 16px; font-weight: bold; margin-bottom: 15px; color: #165b1c;"><i class="fa-solid fa-user-plus"></i> Registrar Nuevo Chofer</h2>
+                    
+                    <form id="formRegistrarChofer" style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; flex-direction: column; gap: 5px;">
+                            <label style="font-size: 13px; font-weight: 600;">Nombre Completo</label>
+                            <input type="text" id="chof_nombre" placeholder="Ej. Juan Manuel Pérez" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 5px;">
+                            <label style="font-size: 13px; font-weight: 600;">Correo Electrónico (Usuario)</label>
+                            <input type="email" id="chof_correo" placeholder="chofer@ecologistica.com" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 5px;">
+                            <label style="font-size: 13px; font-weight: 600;">Contraseña de Acceso</label>
+                            <input type="password" id="chof_contra" placeholder="********" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 5px;">
+                            <label style="font-size: 13px; font-weight: 600;">Confirmar Contraseña</label>
+                            <input type="password" id="chof_contra_conf" placeholder="********" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;" required>
+                        </div>
+                        
+                        <button type="submit" style="background: #165b1c; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 14px;">Registrar y Activar Acceso</button>
+                    </form>
+                </section>
+
+                <section style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+                    <h2 style="font-size: 16px; font-weight: bold; margin-bottom: 15px; color: #1e293b;">Personal en Planta</h2>
+                    
+                    <table class="products-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                        <thead>
+                            <tr style="color: #475569; border-bottom: 2px solid #e2e8f0; font-size: 13px;">
+                                <th style="padding: 10px;">ID</th>
+                                <th style="padding: 10px;">Nombre</th>
+                                <th style="padding: 10px;">Correo de Acceso</th>
+                                <th style="padding: 10px; text-align: center;">Estatus</th>
+                                <th style="padding: 10px; text-align: center;">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaChoferesCuerpo" style="font-size: 13px; color: #334155;">
+                            </tbody>
+                    </table>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <div id="modalEditarChofer" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 30px; border-radius: 12px; width: 400px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+            <h3 style="color: #1e293b; margin-bottom: 20px;"><i class="fa-solid fa-pencil"></i> Editar Conductor</h3>
+            <form id="formEditarChofer" style="display: flex; flex-direction: column; gap: 15px;">
+                <input type="hidden" id="edit_id_usu">
+                
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 13px; color: #475569;">Nombre Completo</label>
+                    <input type="text" id="edit_nombre" required style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
+                
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 13px; color: #475569;">Correo Electrónico</label>
+                    <input type="email" id="edit_correo" required style="padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button type="button" id="btnCerrarEditarChofer" style="padding: 10px; flex: 1; border: 1px solid #cbd5e1; background: #f1f5f9; border-radius: 6px; cursor: pointer; font-weight: bold; color: #475569;">Cancelar</button>
+                    <button type="submit" style="padding: 10px; flex: 1; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../PUBLIC/js/conductores.js"></script>
+    <script src="../PUBLIC/js/seguridad.js"></script>
+</body>
+</html>

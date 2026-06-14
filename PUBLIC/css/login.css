@@ -1,0 +1,317 @@
+:root {
+    --primary-green: #1f7a34;
+    --light-green: #5ccf62;
+    --text-dark: #1a1a1a;
+    --text-muted: #666666;
+    --border-color: #cfcfcf;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #ffffff 0%, #f6fbf3 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.top-left-label {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    color: #d8d8d8;
+    font-size: 13px;
+}
+
+/* Fondo verde tipo paisaje */
+body::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 70%;
+    height: 210px;
+    background: linear-gradient(135deg, #27a937, #8fd15b);
+    clip-path: ellipse(75% 55% at 25% 100%);
+    z-index: 0;
+}
+
+body::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 70%;
+    height: 150px;
+    background: #d9edc9;
+    clip-path: ellipse(75% 55% at 75% 100%);
+    z-index: 0;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 1100px;
+    min-height: 650px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 40px;
+    padding: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.logo-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+    position: relative;
+}
+
+/* Planta decorativa */
+.logo-section::before {
+    content: "🌿";
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    font-size: 190px;
+    opacity: 0.95;
+}
+
+.main-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 2;
+    margin-bottom: 120px;
+}
+
+.icon-truck {
+    font-size: 70px;
+    color: var(--primary-green);
+    filter: hue-rotate(60deg);
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.eco-logistica {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--primary-green);
+}
+
+.veracruz {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--light-green);
+    margin-top: 8px;
+}
+
+.login-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-login {
+    background: var(--white);
+    width: 100%;
+    max-width: 415px;
+    padding: 38px 42px;
+    border-radius: 6px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+}
+
+.card-login h2 {
+    font-size: 30px;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+    font-weight: 800;
+}
+
+.card-login .subtitle {
+    color: var(--text-muted);
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 42px;
+}
+
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    height: 40px;
+    padding: 10px 14px;
+    border: 1px solid #bdbdbd;
+    border-radius: 7px;
+    font-size: 14px;
+    outline: none;
+    background: #fff;
+}
+
+.input-group input:focus {
+    border-color: var(--primary-green);
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 45px;
+}
+
+.password-wrapper i {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #8c8c8c;
+    font-size: 22px;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 28px 0 30px;
+    font-size: 12px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.remember-me input {
+    display: none;
+}
+
+.checkmark {
+    width: 23px;
+    height: 23px;
+    border: 2px solid var(--light-green);
+    border-radius: 4px;
+    margin-right: 8px;
+    background: white;
+}
+
+.remember-me input:checked + .checkmark::after {
+    content: "✓";
+    color: var(--primary-green);
+    font-weight: bold;
+    position: relative;
+    left: 4px;
+    top: -1px;
+}
+
+.forgot-password {
+    color: var(--light-green);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.btn-submit {
+    width: 100%;
+    background: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 13px;
+    font-size: 17px;
+    font-weight: 700;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(31, 122, 52, 0.25);
+}
+
+.btn-submit:hover {
+    background: #176128;
+}
+
+.register-link {
+    margin-top: 26px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dark);
+    display: flex;
+    justify-content: space-between;
+}
+
+.register-link a {
+    color: var(--light-green);
+    text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        overflow-y: auto;
+    }
+
+    .login-container {
+        grid-template-columns: 1fr;
+        padding: 25px;
+        gap: 10px;
+    }
+
+    .logo-section {
+        min-height: 250px;
+    }
+
+    .logo-section::before {
+        font-size: 100px;
+        left: 0;
+        bottom: 0;
+    }
+
+    .main-logo {
+        margin-bottom: 20px;
+    }
+
+    .eco-logistica {
+        font-size: 34px;
+    }
+
+    .veracruz {
+        font-size: 22px;
+    }
+
+    .card-login {
+        padding: 30px;
+    }
+
+    .register-link {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+}

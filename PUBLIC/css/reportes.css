@@ -1,0 +1,276 @@
+/* ==========================================================================
+   CSS EXCLUSIVO PARA LA VISTA DE REPORTES (reportes.css)
+   ========================================================================== */
+
+/* RESET GENERAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f1f5f9;
+    font-family: 'Lato', sans-serif;
+    min-height: 100vh;
+}
+
+/* CONTENEDOR GRID PRINCIPAL */
+.slide-container {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+}
+
+/* SIDEBAR IZQUIERDO (IDÉNTICO A TU DISEÑO BASE) */
+.sidebar {
+    background-color: #1a3c1e;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 0;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    padding: 0 25px;
+    margin-bottom: 40px;
+}
+
+.sidebar-logo i {
+    font-size: 28px;
+    color: #59ca64;
+    margin-right: 12px;
+}
+
+.brand-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.brand-name span {
+    color: #59ca64;
+    display: block;
+    font-size: 13px;
+}
+
+.nav-menu {
+    list-style: none;
+    flex-grow: 1;
+}
+
+.nav-item {
+    padding: 14px 25px;
+    display: flex;
+    align-items: center;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-weight: 400;
+    transition: 0.3s;
+}
+
+.nav-item i {
+    margin-right: 15px;
+    width: 20px;
+    text-align: center;
+}
+
+.nav-item.active {
+    background-color: rgba(89, 202, 100, 0.1);
+    color: #59ca64;
+    border-left: 4px solid #59ca64;
+    font-weight: 700;
+}
+
+.nav-item:hover {
+    color: #ffffff;
+    background-color: rgba(255,255,255,0.05);
+}
+
+.logout-btn {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 20px 25px;
+    color: #f87171;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    margin-top: auto;
+}
+
+.logout-btn i {
+    margin-right: 10px;
+}
+
+/* SECCIÓN CONTENIDO PRINCIPAL */
+.main-content {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* BARRA SUPERIOR DE CONTROLES */
+.reportes-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.reportes-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.controls-section {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.date-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.date-filter-group label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.select-date-range {
+    padding: 10px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #334155;
+    font-size: 14px;
+    outline: none;
+}
+
+.btn-export {
+    background-color: #ffffff;
+    color: #334155;
+    border: 1px solid #94a3b8;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+.btn-export:hover {
+    background-color: #f8fafc;
+}
+
+/* GRID DE TARJETAS KPI (GRISES DE TU MOCKUP) */
+.kpi-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.kpi-card {
+    background-color: #e5e7eb; /* Gris perla exacto del mockup */
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: inset 0 0 2px rgba(0,0,0,0.02);
+}
+
+.kpi-title {
+    font-size: 14px;
+    color: #475569;
+    font-weight: bold;
+}
+
+.kpi-main-value {
+    font-family: 'Poppins', sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.kpi-trend {
+    font-size: 13px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.kpi-trend.trend-up {
+    color: #16a34a; /* Verde para las tendencias de crecimiento */
+}
+
+.kpi-trend span {
+    color: #64748b;
+    font-weight: normal;
+}
+
+/* SECCIÓN CONTENEDORA DE PRODUCTOS MÁS VENDIDOS */
+.top-products-container {
+    background-color: #e5e7eb; /* Caja exterior gris */
+    border: 1px solid #94a3b8;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.container-header h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: #000000;
+    text-transform: none;
+    margin-bottom: 5px;
+}
+
+.top-products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Filas Blancas Redondeadas del Podio */
+.top-product-item {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 16px 25px;
+    display: grid;
+    grid-template-columns: 60px 1fr 150px; /* Estructura de columnas alineadas */
+    align-items: center;
+    font-size: 14px;
+    color: #1e293b;
+}
+
+.product-rank {
+    font-weight: bold;
+    color: #000000;
+}
+
+.product-name-cell {
+    font-weight: 500;
+}
+
+.product-quantity-cell {
+    text-align: right;
+    color: #475569;
+    padding-right: 10px;
+}

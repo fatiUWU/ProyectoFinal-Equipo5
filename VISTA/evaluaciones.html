@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLogística Veracruz - Evaluaciones</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../PUBLIC/css/pedidos.css">
+</head>
+<body>
+
+    <div class="slide-container" style="display: flex; min-height: 100vh;">
+        
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <i class="fa-solid fa-truck-fast"></i>
+                <div class="brand-name">EcoLogística<span>Veracruz</span></div>
+            </div>
+            <nav class="nav-menu">
+                <li><a href="dashboard.html" class="nav-item"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                <li><a href="inventario.html" class="nav-item"><i class="fa-solid fa-clipboard-list"></i> Inventario</a></li>
+                <li><a href="crearP.html" class="nav-item"><i class="fa-solid fa-cart-shopping"></i> Crear pedido</a></li>
+                <li><a href="pedidos.html" class="nav-item"><i class="fa-solid fa-box"></i> Pedidos</a></li>
+                <li><a href="logistica.html" class="nav-item"><i class="fa-solid fa-truck"></i> Logística</a></li>
+                <li><a href="evaluaciones.html" class="nav-item active" style="color:#fbbf24;"><i class="fa-solid fa-star"></i> Evaluaciones</a></li>
+            </nav>
+            <a href="login.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a>
+        </aside>
+
+        <main class="main-content" style="flex: 1; padding: 30px; background: #f8fafc;">
+            <header style="margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1 style="font-size: 26px; font-weight: bold; color: #1e293b; margin-bottom: 5px;">Control de Calidad</h1>
+                    <p style="color: #64748b; margin: 0; font-size: 14px;">Opiniones y calificaciones de las entregas</p>
+                </div>
+                <a href="pedidos.html" style="background: white; border: 1px solid #cbd5e1; padding: 8px 15px; border-radius: 6px; text-decoration: none; color: #475569; font-weight: bold;"><i class="fa-solid fa-arrow-left"></i> Volver a Pedidos</a>
+            </header>
+
+            <div id="gridEvaluaciones" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+                <div style="grid-column: 1/-1; text-align: center; color: #64748b; padding: 40px;">
+                    <i class="fa-solid fa-spinner fa-spin" style="font-size: 24px;"></i> Cargando evaluaciones...
+                </div>
+            </div>
+        </main>
+    </div> 
+
+    <script src="../PUBLIC/js/evaluaciones.js"></script>
+    <script src="../PUBLIC/js/seguridad.js"></script>
+</body>
+</html>

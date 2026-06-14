@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLogística Veracruz - Iniciar Sesión</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../PUBLIC/css/login.css">
+</head>
+<body>
+    <small class="top-left-label">Iniciar sesion</small>
+
+    <div class="login-container">
+        <div class="logo-section">
+            <div class="logo-wrapper">
+                <div class="main-logo">
+                    <span class="icon-truck">🚚</span> 
+                    <div class="brand-text">
+                        <span class="eco-logistica">EcoLogistica</span>
+                        <span class="veracruz">Veracruz</span>
+                    </div>
+                </div>
+            </div>
+            <div class="background-waves"></div>
+        </div>
+
+        <div class="login-section">
+            <div class="card-login">
+                <h2>Bienvenido de nuevo</h2>
+                <p class="subtitle">Inicia sesion para continuar</p>
+
+                <div id="mensajeError" style="display: none; background: #fee2e2; color: #b91c1c; padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 14px; font-weight: bold; text-align: center;"></div>
+
+                <form id="loginForm" action="../CONTROLADOR/LoginC.php" method="POST">
+                    <div class="input-group">
+                        <label for="email">Correo electronico</label>
+                        <input type="email" id="log_correo" name="correo" placeholder="correo@ejemplo.com" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Contraseña</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="log_contra" name="contra" placeholder="********" required>
+                            <i class="far fa-eye-slash" id="togglePassword"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" id="remember">
+                            <span class="checkmark"></span>
+                            Recuerdame
+                        </label>
+                        <a href="recuperar.html" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Iniciar sesión</button>
+                </form>
+
+                <div class="register-link">
+                    ¿No tienes cuenta? <a href="registro.html">Registrate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../PUBLIC/js/login.js?v=2"></script>
+</body>
+</html>

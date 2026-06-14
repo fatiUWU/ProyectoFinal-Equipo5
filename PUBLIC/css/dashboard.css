@@ -1,0 +1,190 @@
+/* RESET GENERAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f1f5f9;
+    font-family: 'Lato', sans-serif;
+    min-height: 100vh;
+}
+
+/* SIDEBAR IZQUIERDO */
+.sidebar {
+    background-color: #1a3c1e; /* Verde oscuro institucional */
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    width: 260px;
+    padding: 30px 0;
+    flex-shrink: 0;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    padding: 0 25px;
+    margin-bottom: 40px;
+}
+
+.sidebar-logo i {
+    font-size: 28px;
+    color: #59ca64;
+    margin-right: 12px;
+}
+
+.brand-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.brand-name span {
+    color: #59ca64;
+    display: block;
+    font-size: 13px;
+}
+
+.nav-menu {
+    list-style: none;
+    flex-grow: 1;
+}
+
+.nav-item {
+    padding: 14px 25px;
+    display: flex;
+    align-items: center;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-weight: 400;
+    transition: 0.3s;
+}
+
+.nav-item i {
+    margin-right: 15px;
+    width: 20px;
+    text-align: center;
+}
+
+.nav-item.active {
+    background-color: rgba(89, 202, 100, 0.1);
+    color: #59ca64;
+    border-left: 4px solid #59ca64;
+    font-weight: 700;
+}
+
+.nav-item:hover {
+    color: #ffffff;
+    background-color: rgba(255,255,255,0.05);
+}
+
+.logout-btn {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 20px 25px;
+    color: #f87171;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.logout-btn i {
+    margin-right: 10px;
+}
+
+.logout-btn:hover {
+    background-color: rgba(248, 113, 113, 0.1);
+}
+
+/* ==========================================
+   DISEÑO RESPONSIVO (MÓVILES Y TABLETS)
+   ========================================== */
+@media (max-width: 900px) {
+    /* Forzamos el contenedor principal a ser columna (sobrescribe el style inline) */
+    .app-container {
+        flex-direction: column !important;
+    }
+
+    /* La barra lateral se vuelve un header superior oscuro */
+    .sidebar {
+        width: 100% !important;
+        padding: 0 !important;
+        flex-direction: column;
+    }
+
+    .sidebar-logo {
+        padding: 20px 25px;
+        margin-bottom: 0;
+        justify-content: flex-start; /* Logo a la izquierda como en la foto */
+    }
+
+    /* El menú de navegación se hace deslizable horizontalmente (estilo píldoras) */
+    .nav-menu {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 0 15px 15px 15px;
+        gap: 10px;
+        -webkit-overflow-scrolling: touch; /* Scroll suave en iPhone */
+    }
+
+    /* Ocultar la barra de scroll en el menú para que se vea estético */
+    .nav-menu::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-menu li {
+        list-style: none;
+    }
+
+    .nav-item {
+        padding: 8px 16px;
+        border-radius: 20px;
+        border-left: none !important;
+        background-color: rgba(255, 255, 255, 0.05);
+        font-size: 13px;
+        white-space: nowrap; /* Evita que el texto brinque de línea */
+    }
+
+    .nav-item.active {
+        background-color: rgba(89, 202, 100, 0.15) !important;
+        color: #59ca64 !important;
+    }
+
+    /* Ajustamos el botón de cerrar sesión para el móvil */
+    .logout-btn {
+        margin: 0 15px 15px 15px;
+        border-top: none;
+        padding: 10px;
+        justify-content: center;
+        border-radius: 8px;
+        background-color: rgba(248, 113, 113, 0.1);
+    }
+
+    /* Ajustamos el padding del main content que estaba fijo en 30px */
+    .main-content {
+        padding: 20px !important;
+    }
+
+    /* Tarjetas KPI de 4 columnas a 1 columna vertical (sobrescribe el style inline) */
+    .kpi-container {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+        margin-bottom: 25px !important;
+    }
+
+    /* Tabla con scroll horizontal interno para evitar que se desborde la pantalla */
+    .custom-table-container {
+        padding: 15px !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .products-table {
+        min-width: 600px; /* Obliga a la tabla a mantener tamaño para activar el scroll lateral */
+    }
+}

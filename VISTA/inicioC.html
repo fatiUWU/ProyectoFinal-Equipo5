@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLogística Veracruz - Mi Tienda</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../PUBLIC/css/dashboard.css">
+</head>
+<body>
+
+    <div class="app-container" style="display: flex; min-height: 100vh;">
+        
+        <aside class="sidebar" style="background: #1e4620; width: 260px; color: white;">
+            <div class="sidebar-logo" style="padding: 20px; font-weight: bold; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-basket-shopping" style="color: #6ee7b7;"></i>
+                <div class="brand-name" style="line-height: 1.2;">
+                    EcoMarket
+                    <span style="display:block; font-size:11px; color:#a7f3d0; font-weight:normal;">Cliente Sostenible</span>
+                </div>
+            </div>
+            
+            <nav class="nav-menu" style="list-style: none; padding: 10px; display: flex; flex-direction: column; gap: 5px;">
+                <li><a href="inicioC.html" class="nav-item active" style="color: #6ee7b7; font-weight: bold;"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                <li><a href="crearP.html" class="nav-item" style="color: white; text-decoration: none;"><i class="fa-solid fa-cart-plus"></i> Crear pedido</a></li>
+                <li><a href="misPedidosC.html" class="nav-item" style="color: white; text-decoration: none;"><i class="fa-solid fa-box-open"></i> Mis pedidos</a></li>
+                <li><a href="miCuentaC.html" class="nav-item" style="color: white; text-decoration: none;"><i class="fa-solid fa-user-gear"></i> Mi cuenta</a></li>
+            </nav>
+
+            <a href="login.html" class="logout-btn" style="margin-top: auto; color: #fee2e2; padding: 20px; display: block; text-decoration: none;"><i class="fa-solid fa-power-off"></i> Cerrar Sesión</a>
+        </aside>
+
+        <main class="main-content" style="flex: 1; padding: 40px; background-color: #f8fafc; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+            
+            <div style="background: white; padding: 40px; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); max-width: 600px; width: 100%;">
+                
+                <div style="background: #f0fdf4; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto;">
+                    <i class="fa-solid fa-hands-holding-child" style="font-size: 36px; color: #165b1c;"></i>
+                </div>
+
+                <h1 style="font-size: 28px; font-weight: bold; color: #1e293b; margin-bottom: 10px;">¡Te damos la bienvenida a EcoLogística!</h1>
+                <p style="color: #64748b; font-size: 15px; line-height: 1.6; margin-bottom: 30px;">
+                    Desde aquí puedes levantar tus órdenes de hortalizas frescas o derivados artesanales de la región de Veracruz, gestionar tus direcciones de entrega y monitorear el estatus de tus envíos en tiempo real.
+                </p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <a href="crearP.html" style="background: #165b1c; color: white; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: bold; display: flex; flex-direction: column; align-items: center; gap: 8px; transition: transform 0.2s;">
+                        <i class="fa-solid fa-basket-shopping" style="font-size: 20px;"></i>
+                        <span style="font-size: 14px;">Hacer un Pedido</span>
+                    </a>
+                    <a href="misPedidosC.html" style="background: #f1f5f9; color: #334155; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: bold; display: flex; flex-direction: column; align-items: center; gap: 8px; transition: transform 0.2s;">
+                        <i class="fa-solid fa-clock-history" style="font-size: 20px; color: #165b1c;"></i>
+                        <span style="font-size: 14px;">Rastrear Compras</span>
+                    </a>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+<script src="../PUBLIC/js/seguridad.js"></script>
+</body>
+</html>

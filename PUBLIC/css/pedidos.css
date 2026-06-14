@@ -1,0 +1,292 @@
+/* ==========================================================================
+   CSS EXCLUSIVO PARA LA VISTA DE PEDIDOS (pedidos.css)
+   ========================================================================== */
+
+/* RESET GENERAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f1f5f9;
+    font-family: 'Lato', sans-serif;
+    min-height: 100vh;
+}
+
+/* CONTENEDOR GRID PRINCIPAL */
+.slide-container {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+}
+
+/* SIDEBAR IZQUIERDO (IDÉNTICO A TU DISEÑO BASE) */
+.sidebar {
+    background-color: #1a3c1e;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 0;
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    padding: 0 25px;
+    margin-bottom: 40px;
+}
+
+.sidebar-logo i {
+    font-size: 28px;
+    color: #59ca64;
+    margin-right: 12px;
+}
+
+.brand-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.brand-name span {
+    color: #59ca64;
+    display: block;
+    font-size: 13px;
+}
+
+.nav-menu {
+    list-style: none;
+    flex-grow: 1;
+}
+
+.nav-item {
+    padding: 14px 25px;
+    display: flex;
+    align-items: center;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-weight: 400;
+    transition: 0.3s;
+}
+
+.nav-item i {
+    margin-right: 15px;
+    width: 20px;
+    text-align: center;
+}
+
+.nav-item.active {
+    background-color: rgba(89, 202, 100, 0.1);
+    color: #59ca64;
+    border-left: 4px solid #59ca64;
+    font-weight: 700;
+}
+
+.nav-item:hover {
+    color: #ffffff;
+    background-color: rgba(255,255,255,0.05);
+}
+
+.logout-btn {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding: 20px 25px;
+    color: #f87171;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    margin-top: auto;
+}
+
+.logout-btn i {
+    margin-right: 10px;
+}
+
+/* CONTENIDO PRINCIPAL */
+.main-content {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.pedidos-header .pedidos-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* FILTROS SUPERIORES */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-wrapper {
+    position: relative;
+    flex-grow: 1;
+    max-width: 500px;
+}
+
+.search-wrapper i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 10px 10px 45px;
+    border: 1px solid #cbd5e1;
+    border-radius: 20px;
+    background-color: #ffffff;
+    font-size: 14px;
+    outline: none;
+}
+
+.select-state {
+    padding: 10px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #475569;
+    font-size: 14px;
+    outline: none;
+}
+
+/* PESTAÑAS DE ESTADO (TABS) */
+.states-tabs {
+    display: flex;
+    gap: 30px;
+    border-bottom: 2px solid #cbd5e1;
+    padding-left: 10px;
+}
+
+.tab-item {
+    text-decoration: none;
+    color: #475569;
+    font-size: 15px;
+    font-weight: bold;
+    padding-bottom: 12px;
+    position: relative;
+}
+
+.tab-item.active {
+    color: #1a3c1e;
+}
+
+.tab-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #1a3c1e; /* Línea verde indicadora de pestaña activa */
+}
+
+/* TABLA DE TARJETAS REDONDEADAS */
+.custom-table-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.table-labels {
+    color: #000000;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Grid maestro de 6 columnas con la proporción exacta de Inicio */
+.labels-pedidos {
+    display: grid;
+    grid-template-columns: 1.2fr 1.8fr 1.2fr 1.2fr 1fr 0.8fr;
+    padding: 0 20px;
+    align-items: center;
+}
+
+.table-row-card {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 15px 20px;
+    font-size: 14px;
+    color: #334155;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+}
+
+/* Estados de Pills coloreados del mockup original */
+.status-text {
+    font-weight: 500;
+}
+.status-text.pendiente { color: #f97316; }
+.status-text.preparacion { color: #f97316; }
+.status-text.enviado { color: #16a34a; }
+.status-text.entregado { color: #16a34a; }
+
+/* Iconos de acciones (Lápiz y Basura) */
+.action-icons-group {
+    display: flex;
+    gap: 15px;
+    font-size: 16px;
+    color: #334155;
+}
+
+.action-icons-group i {
+    cursor: pointer;
+}
+
+.action-icons-group i:hover {
+    color: #165b1c;
+}
+
+.text-center { 
+    text-align: center; 
+    justify-content: center;
+}
+
+/* FOOTER DE PAGINACIÓN */
+.pagination-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    font-size: 14px;
+    color: #64748b;
+    padding: 0 10px;
+}
+
+.pagination-controls {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.page-arrow, .page-number {
+    text-decoration: none;
+    color: #475569;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background-color: #e2e8f0;
+    font-weight: 600;
+    font-size: 13px;
+    transition: background 0.2s;
+}
+
+.page-number.active {
+    background-color: #1a3c1e;
+    color: #ffffff;
+}
+
+.page-arrow:hover, .page-number:hover:not(.active) {
+    background-color: #cbd5e1;
+}

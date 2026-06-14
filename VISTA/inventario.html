@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLogística Veracruz - Inventario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../PUBLIC/css/inventario.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <i class="fa-solid fa-truck-fast"></i>
+                <div class="brand-name">EcoLogística<span>Veracruz</span></div>
+            </div>
+            <nav class="nav-menu">
+                <li><a href="dashboard.html" class="nav-item"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                <li><a href="inventario.html" class="nav-item active"><i class="fa-solid fa-clipboard-list"></i> Inventario</a></li>
+                <li><a href="crearP.html" class="nav-item"><i class="fa-solid fa-cart-shopping"></i> Crear pedido</a></li>
+                <li><a href="pedidos.html" class="nav-item"><i class="fa-solid fa-box"></i> Pedidos</a></li>
+                <li><a href="logistica.html" class="nav-item"><i class="fa-solid fa-truck"></i> Logística</a></li>
+                <li><a href="usuarios.html" class="nav-item"><i class="fa-solid fa-user-tie"></i> Conductores</a></li>
+                <li><a href="vehiculos.html" class="nav-item"><i class="fa-solid fa-truck-front"></i> Vehículos</a></li>
+                <li><a href="reportes.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Reportes</a></li>
+                <li><a href="facturacion.html" class="nav-item "><i class="fa-solid fa-file-invoice-dollar"></i> Nota de venta</a></li>
+            </nav>
+            <a href="login.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a>
+        </aside>
+
+        <main class="main-content">
+            <div id="panelAlertasStock" class="alertas-inventario-box" style="display:none; background-color: #fee2e2; border: 1px solid #ef4444; padding: 15px; border-radius: 8px; margin-bottom: 20px; color: #991b1b;"></div>
+
+            <header class="inventory-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="inventory-title">Inventario</div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-add-product" id="btnVerHistorial" style="background: #334155;"><i class="fa-solid fa-clock-rotate-left"></i> Ver Historial</button>
+                    <button class="btn-add-product" id="btnAbrirModal">+ Agregar Productos</button>
+                </div>
+            </header>
+
+            <section class="filter-bar">
+                <div class="search-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="inputBuscar" class="search-input" placeholder="Buscar producto">
+                </div>
+                <select id="selectFiltroCategoria" class="select-category">
+                    <option value="Todos">Todas las categorias</option>
+                    <option value="Hortaliza">Hortalizas</option>
+                    <option value="Artesanal">Artesanales</option>
+                </select>
+            </section>
+
+            <section class="custom-table-container">
+                <div class="table-labels labels-inventory">
+                    <div>Producto</div>
+                    <div>Categoria</div>
+                    <div>Stock Actual</div>
+                    <div>Estado</div>
+                    <div class="text-center">Acciones</div>
+                </div>
+                <div id="tablaInventarioCuerpo"></div>
+            </section>
+        </main>
+    </div>
+
+    <div id="modalProducto" class="modal-layout" style="display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000;">
+        <div class="modal-card" style="background: white; padding: 30px; border-radius: 12px; width: 100%; max-width: 450px; display: flex; flex-direction: column; gap: 15px; max-height: 90vh; overflow-y: auto;">
+            <h3 style="font-size: 20px; font-weight: bold; margin-bottom: 5px;">Registrar Nuevo Producto</h3>
+            <form id="productoForm" style="display: flex; flex-direction: column; gap: 12px;">
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 14px;">Nombre del Producto</label>
+                    <input type="text" id="prod_nombre" placeholder="Ej. Lechuga Orgánica" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 14px;">Categoría</label>
+                    <select id="prod_tipo" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required>
+                        <option value="Hortaliza">Hortaliza</option>
+                        <option value="Artesanal">Artesanal</option>
+                    </select>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 14px;">Unidad de Medida</label>
+                    <select id="prod_unidad" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required>
+                        <option value="kg">Kilogramos (kg)</option>
+                        <option value="litros">Litros (l)</option>
+                    </select>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 14px;">Stock Inicial</label>
+                        <input type="number" id="prod_stock" placeholder="0" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 14px;">Stock Mínimo</label>
+                        <input type="number" id="prod_minimo" placeholder="0 (Opcional)" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 14px;">Precio Unitario</label>
+                    <input type="number" step="0.01" id="prod_precio" placeholder="0.00" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required>
+                </div>
+
+                <strong style="font-size: 13px; color: #165b1c; margin-top: 5px;"><i class="fa-solid fa-tag"></i> Control de Lotes (Opcional)</strong>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 13px;">Núm. Lote</label>
+                        <input type="text" id="prod_lote" placeholder="Ej. L-001" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                        <label style="font-weight: 600; font-size: 13px;">F. Producción</label>
+                        <input type="date" id="prod_f_prod" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 13px;">F. Caducidad</label>
+                    <input type="date" id="prod_f_cad" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 14px;">Descripción</label>
+                    <textarea id="prod_desc" placeholder="Detalles..." style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; resize: none; height: 60px;"></textarea>
+                </div>
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+                    <button type="button" id="btnCerrarModal" style="padding: 10px 15px; border: 1px solid #ccc; background: #eee; border-radius: 6px;">Cancelar</button>
+                    <button type="submit" style="padding: 10px 15px; background: #165b1c; color: white; border: none; border-radius: 6px; font-weight: bold;">Guardar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalMovimiento" class="modal-layout" style="display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000;">
+        <div class="modal-card" style="background: white; padding: 30px; border-radius: 12px; width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 12px; max-height: 90vh; overflow-y: auto;">
+            <h3 style="font-size: 20px; font-weight: bold; color: #165b1c;"><i class="fa-solid fa-pen-to-square"></i> Editar e Historial de Stock</h3>
+            
+            <form id="movimientoForm" style="display: flex; flex-direction: column; gap: 12px;">
+                <input type="hidden" id="mov_id_producto">
+
+                <div style="display: flex; flex-direction: column; gap: 4px;">
+                    <label style="font-weight: 600; font-size: 14px;">Nombre del Producto</label>
+                    <input type="text" id="mov_nombre" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <label style="font-weight: 600; font-size: 14px;">Categoría</label>
+                        <select id="mov_tipo" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required>
+                            <option value="Hortaliza">🥬 Hortaliza</option>
+                            <option value="Artesanal">🍯 Artesanal</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <label style="font-weight: 600; font-size: 14px;">Unidad de Medida</label>
+                        <select id="mov_unidad" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required>
+                            <option value="kg">Kilogramos (kg)</option>
+                            <option value="litros">Litros (litros)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <label style="font-weight: 600; font-size: 14px;">Precio ($)</label>
+                        <input type="number" step="0.01" id="mov_precio" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <label style="font-weight: 600; font-size: 14px;">Stock Mínimo</label>
+                        <input type="number" id="mov_minimo" placeholder="Opcional" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <label style="font-weight: 600; font-size: 14px;">Estado Visual</label>
+                        <select id="mov_estado" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required>
+                            <option value="Disponible">🟢 Disponible</option>
+                            <option value="Bajo">🟡 Bajo</option>
+                            <option value="No Disponible">🔴 No Disp.</option>
+                        </select>
+                    </div>
+                </div>
+
+                <strong style="font-size: 13px; color: #165b1c; margin-top: 5px;"><i class="fa-solid fa-tag"></i> Control de Lotes</strong>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <label style="font-weight: 600; font-size: 12px;">Lote</label>
+                        <input type="text" id="mov_lote" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <label style="font-weight: 600; font-size: 12px;">F. Producción</label>
+                        <input type="date" id="mov_f_prod" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px;">
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <label style="font-weight: 600; font-size: 12px;">F. Caducidad</label>
+                        <input type="date" id="mov_f_cad" style="padding: 8px; border: 1px solid #ccc; border-radius: 6px;">
+                    </div>
+                </div>
+                
+                <div style="background: #f1f5f9; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 8px; margin-top: 5px;">
+                    <strong style="font-size: 13px; color: #334155;"><i class="fa-solid fa-layer-group"></i> Movimiento Rápido de Stock (Opcional)</strong>
+                    <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 10px;">
+                        
+                        <select id="mov_ajuste_tipo" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px;">
+                            <option value="ninguno">-- Sin movimientos --</option>
+                            <option value="entrada" style="color: #166534; font-weight: bold;">📈 Registrar Entrada Normal</option>
+                            <option value="salida" style="color: #1e3a8a; font-weight: bold;">📉 Registrar Salida Normal</option>
+                            <optgroup label="Ajustes Administrativos (RF-01)">
+                                <option value="dañado">⚠️ Producto Dañado (Resta)</option>
+                                <option value="merma">🍂 Merma / Caducidad (Resta)</option>
+                                <option value="robo">🚨 Robo / Extravío (Resta)</option>
+                                <option value="ajuste_positivo">➕ Ajuste Manual (Suma)</option>
+                                <option value="ajuste_negativo">➖ Ajuste Manual (Resta)</option>
+                            </optgroup>
+                        </select>
+
+                        <input type="number" id="mov_ajuste_cantidad" min="0" placeholder="Cantidad" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px;">
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 4px;">
+                    <label style="font-weight: 600; font-size: 14px;">Descripción</label>
+                    <textarea id="mov_desc" rows="2" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; resize: none;"></textarea>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 5px;">
+                    <button type="button" id="btnCerrarModalMov" style="padding: 10px 15px; border: 1px solid #ccc; background: #eee; border-radius: 6px;">Cancelar</button>
+                    <button type="submit" style="padding: 10px 15px; background: #165b1c; color: white; border: none; border-radius: 6px; font-weight: bold;">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalHistorial" class="modal-layout" style="display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000;">
+        <div class="modal-card" style="background: white; padding: 25px; border-radius: 12px; width: 100%; max-width: 800px; height: 80vh; display: flex; flex-direction: column; gap: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">
+                <h3 style="font-size: 20px; font-weight: bold; color: #1e293b;"><i class="fa-solid fa-clock-rotate-left"></i> Historial de Movimientos</h3>
+                <button id="btnCerrarHistorial" style="background: none; border: none; font-size: 22px; cursor: pointer; color: #64748b;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 5px; margin-bottom: 5px; background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <input type="text" id="filtroHistorialProducto" placeholder="🔍 Buscar por nombre de producto..." style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; flex: 1; font-size: 14px;">
+                <input type="date" id="filtroHistorialFecha" style="padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 6px; color: #475569; font-size: 14px;">
+                <button id="btnLimpiarHistorial" title="Limpiar filtros" style="padding: 8px 15px; border: 1px solid #cbd5e1; background: #fff; border-radius: 6px; cursor: pointer; color: #ef4444; font-weight: bold;"><i class="fa-solid fa-eraser"></i></button>
+            </div>
+            
+            <div style="overflow-y: auto; flex-grow: 1; padding-right: 5px;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                    <thead style="background: #f8fafc; position: sticky; top: 0; z-index: 1;">
+                        <tr>
+                            <th style="padding: 12px; border-bottom: 2px solid #e2e8f0; color: #475569; font-size: 14px;">Fecha y Hora</th>
+                            <th style="padding: 12px; border-bottom: 2px solid #e2e8f0; color: #475569; font-size: 14px;">Producto</th>
+                            <th style="padding: 12px; border-bottom: 2px solid #e2e8f0; color: #475569; font-size: 14px;">Tipo</th>
+                            <th style="padding: 12px; border-bottom: 2px solid #e2e8f0; color: #475569; font-size: 14px; text-align: center;">Cantidad</th>
+                            <th style="padding: 12px; border-bottom: 2px solid #e2e8f0; color: #475569; font-size: 14px; text-align: center;"><i class="fa-solid fa-user"></i> Responsable</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaHistorialCuerpo">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../PUBLIC/js/inventario.js"></script>
+    <script src="../PUBLIC/js/seguridad.js"></script>
+</body>
+</html>

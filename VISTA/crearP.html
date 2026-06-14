@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLogística Veracruz - Crear Pedido</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../PUBLIC/css/crearP.css">
+
+    <style>
+        /* Control de visualización interactiva por pasos */
+        .paso-contenedor { 
+            display: none; 
+            animation: fadeIn 0.3s ease-in-out; 
+        }
+
+        .paso-contenedor.activo { 
+            display: block; 
+        }
+
+        .indicador-pasos { 
+            display: flex; 
+            gap: 20px; 
+            margin-bottom: 25px; 
+            background: white; 
+            padding: 15px; 
+            border-radius: 10px; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02); 
+        }
+
+        .paso-item { 
+            flex: 1; 
+            text-align: center; 
+            padding: 10px; 
+            font-weight: bold; 
+            color: #94a3b8; 
+            border-bottom: 3px solid #e2e8f0; 
+            transition: all 0.3s; 
+        }
+
+        .paso-item.activo { 
+            color: #165b1c; 
+            border-color: #165b1c; 
+        }
+
+        @keyframes fadeIn { 
+            from { 
+                opacity: 0; 
+                transform: translateY(5px); 
+            } 
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            } 
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="slide-container">
+        
+        <aside id="sidebarDinamica" class="sidebar"></aside>
+
+        <main class="main-content">
+            
+            <header class="order-header" style="margin-bottom: 20px;">
+                <h1 class="order-title">Panel de Compras</h1>
+                <p class="order-subtitle" style="color: #64748b; font-weight: normal; font-size: 14px; margin-top: 5px;">
+                    Completa los pasos para levantar tu orden de distribución
+                </p>
+            </header>
+
+            <div class="indicador-pasos">
+                <div class="paso-item activo" id="indPaso1">
+                    <i class="fa-solid fa-basket-shopping"></i> 1. Catálogo y Carrito
+                </div>
+
+                <div class="paso-item" id="indPaso2">
+                    <i class="fa-solid fa-credit-card"></i> 2. Dirección y Pago
+                </div>
+            </div>
+
+            <div id="seccionPaso1" class="paso-contenedor activo">
+                <div style="display: grid; grid-template-columns: 1.8fr 1fr; gap: 25px; align-items: start;">
+                    
+                    <section class="order-card-container">
+                        <h2 class="section-card-title" style="color: #165b1c;">
+                            <i class="fa-solid fa-leaf"></i> Productos Disponibles
+                        </h2>
+
+                        <!-- Buscador de productos -->
+                        <div style="margin-bottom: 18px;">
+                            <label for="buscadorProductos" style="display: block; font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 7px;">
+                                Buscar producto
+                            </label>
+
+                            <div style="position: relative;">
+                                <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #64748b;"></i>
+
+                                <input 
+                                    type="text" 
+                                    id="buscadorProductos" 
+                                    placeholder="Buscar por nombre, tipo o unidad..."
+                                    style="width: 100%; padding: 11px 12px 11px 38px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; font-size: 14px;"
+                                >
+                            </div>
+
+                            <p id="contadorProductos" style="font-size: 12px; color: #64748b; margin-top: 8px;">
+                                Mostrando productos disponibles
+                            </p>
+                        </div>
+
+                        <div id="gridProductos" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
+                        </div>
+                    </section>
+
+                    <section style="display: flex; flex-direction: column; gap: 20px;">
+                        <div class="order-card-container">
+                            <h2 class="section-card-title">
+                                <i class="fa-solid fa-cart-shopping"></i> Bolsa de Compra
+                            </h2>
+
+                            <div id="carritoCuerpo" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px;">
+                            </div>
+
+                            <div class="pricing-summary-block" style="max-width: 100%; padding-top: 10px; margin-bottom: 15px;">
+                                <div class="summary-row" style="padding: 0;">
+                                    <span class="summary-label">Subtotal Actual:</span>
+                                    <span class="summary-value" id="lblSubtotalPaso1">$0.00</span>
+                                </div>
+                            </div>
+
+                            <button type="button" id="btnIrAPago" class="btn-confirm" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                                Continuar al Pago <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+
+            <div id="seccionPaso2" class="paso-contenedor">
+                <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 25px; align-items: start;">
+                    
+                    <section class="order-card-container">
+                        <h3 class="section-card-title" style="color: #165b1c; margin-top:0;">
+                            <i class="fa-solid fa-location-dot"></i> Información de Destino
+                        </h3>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            <div style="display: flex; flex-direction: column; gap: 4px;">
+                                <label style="font-size: 12px; font-weight: 600; color: #475569;">
+                                    Calle y Números (Ext/Int)
+                                </label>
+
+                                <input type="text" id="dir_calle" placeholder="Ej. Av. Independencia #124" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                            </div>
+
+                            <div style="display: flex; flex-direction: column; gap: 4px;">
+                                <label style="font-size: 12px; font-weight: 600; color: #475569;">
+                                    Colonia / Barrio
+                                </label>
+
+                                <input type="text" id="dir_colonia" placeholder="Ej. Centro" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                <div style="display: flex; flex-direction: column; gap: 4px;">
+                                    <label style="font-size: 12px; font-weight: 600; color: #475569;">
+                                        Código Postal (C.P.)
+                                    </label>
+
+                                    <input type="text" id="dir_cp" placeholder="91700" maxlength="5" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                                </div>
+
+                                <div style="display: flex; flex-direction: column; gap: 4px;">
+                                    <label style="font-size: 12px; font-weight: 600; color: #475569;">
+                                        Teléfono de Contacto
+                                    </label>
+
+                                    <input type="tel" id="dir_telefono" placeholder="2291234567" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                                </div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                <div style="display: flex; flex-direction: column; gap: 4px;">
+                                    <label style="font-size: 12px; font-weight: 600; color: #475569;">
+                                        Municipio / Ciudad
+                                    </label>
+
+                                    <input type="text" id="dir_municipio" placeholder="Ej. Veracruz" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                                </div>
+
+                                <div style="display: flex; flex-direction: column; gap: 4px;">
+                                    <label style="font-size: 12px; font-weight: 600; color: #475569;">
+                                        Estado
+                                    </label>
+
+                                    <input type="text" id="dir_estado" value="Veracruz" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                                    <input type="hidden" id="dir_estado_provincia" value="Veracruz">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section style="display: flex; flex-direction: column; gap: 20px;">
+                        <div class="order-card-container">
+                            <h3 class="section-card-title">
+                                <i class="fa-solid fa-receipt"></i> Resumen de Cuenta
+                            </h3>
+
+                            <div class="pricing-summary-block" style="max-width: 100%; padding-top: 0; margin-bottom: 20px;">
+                                <div class="summary-row">
+                                    <span class="summary-label">Subtotal:</span>
+                                    <span class="summary-value" id="lblSubtotal">$0.00</span>
+                                </div>
+
+                                <div class="summary-row">
+                                    <span class="summary-label">Logística de Envío:</span>
+                                    <span class="summary-value" id="lblEnvio">$40.00</span>
+                                </div>
+
+                                <div class="summary-row total-row">
+                                    <span class="summary-label">Total Neto:</span>
+                                    <span class="summary-value" id="lblTotal">$40.00</span>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                                <button type="button" id="btnConfirmarPedido" class="btn-confirm">
+                                    <i class="fa-solid fa-circle-check"></i> Procesar Orden de Compra
+                                </button>
+
+                                <button type="button" id="btnRegresarACatalogo" class="btn-cancel">
+                                    <i class="fa-solid fa-arrow-left"></i> Modificar Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="../PUBLIC/js/crearP.js"></script>
+    <script src="../PUBLIC/js/seguridad.js"></script>
+</body>
+</html>

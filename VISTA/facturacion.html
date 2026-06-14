@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLogística Veracruz - Nota de venta</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../PUBLIC/css/pedidos.css">
+    <style>
+        .filter-container { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); display: flex; gap: 15px; align-items: flex-end; margin-bottom: 20px; }
+        .filter-group { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+        .filter-group label { font-size: 13px; font-weight: 600; color: #475569; }
+        .filter-group input { padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; transition: border-color 0.2s; }
+        .filter-group input:focus { border-color: #165b1c; }
+        .btn-clear { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: all 0.2s; }
+        .btn-clear:hover { background: #e2e8f0; }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container" style="display: flex; min-height: 100vh;">
+        
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <i class="fa-solid fa-truck-fast"></i>
+                <div class="brand-name">EcoLogística<span>Veracruz</span></div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-item"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                <li><a href="inventario.html" class="nav-item"><i class="fa-solid fa-clipboard-list"></i> Inventario</a></li>
+                <li><a href="crearP.html" class="nav-item"><i class="fa-solid fa-cart-shopping"></i> Crear pedido</a></li>
+                <li><a href="pedidos.html" class="nav-item"><i class="fa-solid fa-box"></i> Pedidos</a></li>
+                <li><a href="logistica.html" class="nav-item"><i class="fa-solid fa-truck"></i> Logística</a></li>
+                <li><a href="usuarios.html" class="nav-item"><i class="fa-solid fa-user-tie"></i> Conductores</a></li>
+                <li><a href="vehiculos.html" class="nav-item"><i class="fa-solid fa-truck-front"></i> Vehículos</a></li>
+                <li><a href="reportes.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Reportes</a></li>
+                <li><a href="facturacion.html" class="nav-item active"><i class="fa-solid fa-file-invoice-dollar"></i> Nota de venta</a></li>
+                
+            </ul>
+            <a href="login.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a>
+        </aside>
+
+        <main class="main-content" style="flex: 1; padding: 30px; background: #f8fafc;">
+            <header class="order-header" style="margin-bottom: 25px;">
+                <h1 class="order-title" style="font-size: 26px; font-weight: bold; color: #1e293b; margin-bottom: 5px;">Control de Nota de venta</h1>
+                <p style="color: #64748b; margin: 0; font-size: 14px;">Administra y descarga las notas de remisión y Nota de venta de los clientes</p>
+            </header>
+
+            <div class="filter-container">
+                <div class="filter-group">
+                    <label><i class="fa-solid fa-magnifying-glass"></i> Buscar por Cliente o Folio</label>
+                    <input type="text" id="txtBuscarFactura" placeholder="Ej. Juan Pérez o FAC-0005">
+                </div>
+                <div class="filter-group" style="max-width: 250px;">
+                    <label><i class="fa-regular fa-calendar-days"></i> Filtrar por Fecha</label>
+                    <input type="date" id="txtFechaFactura">
+                </div>
+                <button type="button" class="btn-clear" id="btnLimpiarFiltros" title="Limpiar Búsqueda"><i class="fa-solid fa-eraser"></i> Limpiar</button>
+            </div>
+
+            <section style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+                <table class="products-table" style="width: 100%; border-collapse: collapse; text-align: left;">
+                    <thead>
+                        <tr style="color: #475569; border-bottom: 2px solid #e2e8f0; font-size: 13px; text-transform: uppercase;">
+                            <th style="padding: 15px;">Núm. Nota de venta</th>
+                            <th style="padding: 15px;">Cliente con Nota de venta</th>
+                            <th style="padding: 15px;">Fecha Emisión</th>
+                            <th style="padding: 15px;">Estado Pedido</th>
+                            <th style="padding: 15px; text-align: right;">Monto Total</th>
+                            <th style="padding: 15px; text-align: center;">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaFacturasCuerpo">
+                        </tbody>
+                </table>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="../PUBLIC/js/facturacion.js"></script>
+    <script src="../PUBLIC/js/seguridad.js"></script>
+</body>
+</html>

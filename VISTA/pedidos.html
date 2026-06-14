@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLogística Veracruz - Pedidos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../PUBLIC/css/pedidos.css">
+</head>
+<body>
+
+    <div class="slide-container" style="display: flex; min-height: 100vh;">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <i class="fa-solid fa-leaf"></i>
+                <div class="brand-name">EcoLogística<span>Veracruz</span></div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-item"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                <li><a href="inventario.html" class="nav-item"><i class="fa-solid fa-clipboard-list"></i> Inventario</a></li>
+                <li><a href="crearP.html" class="nav-item"><i class="fa-solid fa-cart-shopping"></i> Crear pedido</a></li>
+                <li><a href="pedidos.html" class="nav-item active"><i class="fa-solid fa-box"></i> Pedidos</a></li>
+                <li><a href="logistica.html" class="nav-item"><i class="fa-solid fa-truck"></i> Logística</a></li>
+                <li><a href="usuarios.html" class="nav-item"><i class="fa-solid fa-user-tie"></i> Conductores</a></li>
+                <li><a href="vehiculos.html" class="nav-item"><i class="fa-solid fa-truck-front"></i> Vehículos</a></li>
+                <li><a href="reportes.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> Reportes</a></li>
+                <li><a href="facturacion.html" class="nav-item"><i class="fa-solid fa-file-invoice-dollar"></i> Nota de venta</a></li>
+               
+            </ul>
+            <a href="login.html" class="logout-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesión</a>
+        </aside>
+
+        <main class="main-content" style="flex: 1; padding: 30px;">
+            <header class="order-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h1 class="order-title" style="font-size: 28px; font-weight: bold; margin-bottom: 0;">Pedidos</h1>
+                
+                <a href="evaluaciones.html" style="background: #fbbf24; color: #1e293b; padding: 10px 15px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <i class="fa-solid fa-star"></i> Ver Evaluaciones de Clientes
+                </a>
+            </header>
+
+            <section class="order-card-container" style="background: white; padding: 25px; border-radius: 12px; margin-top: 20px;">
+                
+                <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                    <div style="position: relative; flex: 1;">
+                        <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 12px; top: 12px; color: #94a3b8;"></i>
+                        <input type="text" id="inputBuscarPedido" placeholder="Buscar por folio o por nombre de cliente..." style="width: 100%; padding: 10px 10px 10px 35px; border: 1px solid #cbd5e1; border-radius: 8px;">
+                    </div>
+                    <select id="selectFiltroEstadoRapido" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px;">
+                        <option value="Todos">Todos los estados</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="En Preparacion">En Preparación</option>
+                        <option value="Enviado">Enviado</option>
+                        <option value="Entregado">Entregado</option>
+                        <option value="Cancelado">Cancelado</option>
+                        <option value="Devuelto">Devuelto</option>
+                    </select>
+                </div>
+
+                <div class="tabs-estados-container" style="display: flex; gap: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 20px; font-weight: 600; color: #64748b;">
+                    <span class="tab-link active" data-filter="Todos" style="cursor:pointer; color: #165b1c;">Todos</span>
+                    <span class="tab-link" data-filter="Pendiente" style="cursor:pointer;">Pendiente</span>
+                    <span class="tab-link" data-filter="En Preparacion" style="cursor:pointer;">En Preparación</span>
+                    <span class="tab-link" data-filter="Enviado" style="cursor:pointer;">Enviado</span>
+                    <span class="tab-link" data-filter="Entregado" style="cursor:pointer;">Entregado</span>
+                </div>
+
+                <table class="products-table" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="text-align: left; color: #475569; border-bottom: 2px solid #e2e8f0;">
+                            <th style="padding: 12px;">Pedido</th>
+                            <th style="padding: 12px;">Cliente</th>
+                            <th style="padding: 12px;">Fecha</th>
+                            <th style="padding: 12px;">Estado</th>
+                            <th style="padding: 12px;">Reembolso</th> <th style="padding: 12px;">Total</th>
+                            <th style="padding: 12px;" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaPedidosCuerpo"></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <div id="modalGestionPedido" style="display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000;">
+        <div style="background: white; padding: 25px; border-radius: 12px; width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 15px;">
+            <h3 style="font-size: 18px; font-weight: bold; color: #165b1c;"><i class="fa-solid fa-sliders"></i> Gestionar Orden</h3>
+            <p style="font-size: 14px; color: #475569;">Folio de Pedido: <strong id="lblModalPedidoFolio">-</strong></p>
+            
+            <form id="formCambiarEstado" style="display: flex; flex-direction: column; gap: 12px;">
+                <input type="hidden" id="modalIdPedido">
+                
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 13px;">Actualizar Estado del Pedido</label>
+                    <select id="modalNuevoEstado" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;" required>
+                        <option value="Pendiente">⏳ Pendiente</option>
+                        <option value="En Preparacion">📦 En Preparación</option>
+                        <option value="Enviado">🚚 Enviado (En Ruta)</option>
+                        <option value="Entregado">✅ Entregado</option>
+                        <option value="Cancelado" style="color: #ef4444; font-weight: bold;">🚫 Cancelado</option>
+                        <option value="Devuelto" style="color: #d97706; font-weight: bold;">↩️ Devuelto</option>
+                    </select>
+                </div>
+
+                <div id="seccionDevolucion" style="display: none; background: #fef2f2; padding: 15px; border-radius: 8px; border: 1px solid #fca5a5; flex-direction: column; gap: 10px;">
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <label style="font-weight: 600; font-size: 13px; color: #991b1b;">Motivo de la Cancelación / Devolución</label>
+                        <select id="modalMotivo" style="padding: 8px; border: 1px solid #f87171; border-radius: 6px;">
+                            <option value="A petición del cliente">A petición del cliente</option>
+                            <option value="Producto Dañado">Producto Dañado (No regresa a inventario)</option>
+                            <option value="Error de Inventario">Error de Inventario</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <label style="font-weight: 600; font-size: 13px; color: #991b1b;">Estado del Reembolso</label>
+                        <select id="modalReembolso" style="padding: 8px; border: 1px solid #f87171; border-radius: 6px;">
+                            <option value="Pendiente">⏳ Pendiente de Procesar</option>
+                            <option value="Procesado">✅ Reembolso Procesado</option>
+                            <option value="No Aplica">🚫 No Aplica</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+                    <button type="button" id="btnCerrarModalPed" style="padding: 10px 15px; border: 1px solid #ccc; background: #eee; border-radius: 6px; cursor: pointer;">Cancelar</button>
+                    <button type="submit" style="padding: 10px 15px; background: #165b1c; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;">Actualizar Orden</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalRastreo" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(2px);">
+        <div style="background: white; padding: 25px; border-radius: 16px; width: 90%; max-width: 450px; max-height: 85vh; overflow-y: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 12px; margin-bottom: 20px;">
+                <div>
+                    <h3 style="margin: 0; color: #1e293b; font-size: 18px;"><i class="fa-solid fa-map-location-dot" style="color:#3b82f6;"></i> Rastreo Logístico</h3>
+                    <div style="font-size: 13px; color: #64748b; margin-top: 4px; font-weight: bold;" id="lblRastreoFolio">PED-0000</div>
+                </div>
+                <button id="btnCerrarRastreo" style="background: #f1f5f9; border: none; font-size: 18px; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; color: #64748b; display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div id="contenedorTimeline" style="position: relative; padding-left: 20px; border-left: 3px solid #e2e8f0; margin-left: 10px;">
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../PUBLIC/js/pedidos.js"></script>
+    <script src="../PUBLIC/js/seguridad.js"></script>
+</body>
+</html>

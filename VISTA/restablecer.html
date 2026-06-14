@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLogística Veracruz - Crear Nueva Contraseña</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../PUBLIC/css/pedidos.css">
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; background: #f8fafc; margin: 0; font-family: sans-serif; }
+        .recovery-container { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); width: 100%; max-width: 400px; text-align: center; }
+        .recovery-logo { color: #165b1c; font-size: 40px; margin-bottom: 10px; }
+        .input-group { display: flex; flex-direction: column; text-align: left; gap: 5px; margin-bottom: 15px; }
+        .input-group input { padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; }
+        .btn-submit { background: #165b1c; color: white; border: none; padding: 12px; width: 100%; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 15px; transition: 0.2s; }
+        .btn-submit:hover { background: #144b17; }
+    </style>
+</head>
+<body>
+
+    <div class="recovery-container">
+        <i class="fa-solid fa-key recovery-logo"></i>
+        <h2 style="margin: 0 0 10px 0; color: #1e293b;">Nueva Contraseña</h2>
+        <p style="color: #64748b; font-size: 14px; margin-bottom: 25px;">Crea una nueva contraseña segura para tu cuenta.</p>
+
+        <form id="formRestablecerContra">
+            <input type="hidden" id="txtTokenUrl">
+
+            <div class="input-group">
+                <label style="font-weight: 600; font-size: 13px; color: #475569;">Nueva Contraseña</label>
+                <input type="password" id="txtNuevaPass" placeholder="Mínimo 6 caracteres" required>
+            </div>
+            
+            <div class="input-group" style="margin-bottom: 25px;">
+                <label style="font-weight: 600; font-size: 13px; color: #475569;">Confirmar Contraseña</label>
+                <input type="password" id="txtConfirmarPass" placeholder="Repite la contraseña" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Guardar y Entrar</button>
+        </form>
+
+        <div id="msgAlerta" style="margin-top: 15px; font-size: 13px; font-weight: bold; display: none;"></div>
+    </div>
+
+    <script src="../PUBLIC/js/recuperar.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoLogística Veracruz - Mis Pedidos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../PUBLIC/css/pedidos.css">
+    <style>
+        /* Estilos para las estrellas interactivas */
+        .stars-container {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            gap: 5px;
+        }
+        .stars-container input[type="radio"] {
+            display: none;
+        }
+        .stars-container label {
+            font-size: 24px;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: color 0.2s ease-in-out;
+        }
+        .stars-container label:hover,
+        .stars-container label:hover ~ label,
+        .stars-container input[type="radio"]:checked ~ label {
+            color: #fbbf24; /* Color amarillo brillante */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container" style="display: flex; min-height: 100vh;">
+        
+        <aside class="sidebar" style="background: #1e4620; width: 260px; color: white;">
+            <div class="sidebar-logo" style="padding: 20px; font-weight: bold; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-basket-shopping" style="color: #6ee7b7;"></i>
+                <div class="brand-name">EcoMarket<span style="display:block; font-size:11px; color:#a7f3d0; font-weight:normal;">Cliente Sostenible</span></div>
+            </div>
+            <nav class="nav-menu" style="list-style: none; padding: 10px; display: flex; flex-direction: column; gap: 5px;">
+                <li><a href="inicioC.html" class="nav-item"><i class="fa-solid fa-house"></i> Inicio</a></li>
+                <li><a href="crearP.html" class="nav-item"><i class="fa-solid fa-cart-plus"></i> Crear pedido</a></li>
+                <li><a href="misPedidosC.html" class="nav-item active" style="color: #6ee7b7; font-weight: bold;"><i class="fa-solid fa-box-open"></i> Mis pedidos</a></li>
+                <li><a href="miCuentaC.html" class="nav-item"><i class="fa-solid fa-user-gear"></i> Mi cuenta</a></li>
+            </nav>
+            <a href="login.html" class="logout-btn" style="margin-top: auto; color: #fee2e2; padding: 20px; display: block; text-decoration: none;"><i class="fa-solid fa-power-off"></i> Cerrar Sesión</a>
+        </aside>
+
+        <main class="main-content" style="flex: 1; padding: 30px; background: #f8fafc;">
+            <header class="order-header">
+                <h1 class="order-title" style="font-size: 26px; font-weight: bold; color: #1e293b; margin-bottom: 5px;">Mis Pedidos</h1>
+                <p style="color: #64748b; margin: 0 0 20px 0; font-size: 14px;">Historial de compras y estado de entrega de tus productos</p>
+            </header>
+
+            <section class="order-card-container" style="background: white; padding: 25px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+                
+                <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                    <div style="position: relative; flex: 1;">
+                        <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 12px; top: 12px; color: #94a3b8;"></i>
+                        <input type="text" id="inputBuscarMiPedido" placeholder="Buscar por número de folio (Ej: PED-0001)..." style="width: 100%; padding: 10px 10px 10px 35px; border: 1px solid #cbd5e1; border-radius: 8px;">
+                    </div>
+                    <select id="selectFiltroMiEstado" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; color: #334155; font-weight: 500;">
+                        <option value="Todos">Todos los estados</option>
+                        <option value="Pendiente">⏳ Pendientes</option>
+                        <option value="En Preparacion">📦 En Preparación</option>
+                        <option value="Enviado">🚚 En Ruta</option>
+                        <option value="Entregado">✅ Entregados</option>
+                    </select>
+                </div>
+
+                <table class="products-table" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="text-align: left; color: #475569; border-bottom: 2px solid #e2e8f0; font-size: 14px;">
+                            <th style="padding: 12px;">Folio</th>
+                            <th style="padding: 12px;">Fecha de Compra</th>
+                            <th style="padding: 12px;">Destino / Dirección</th>
+                            <th style="padding: 12px;">Estatus de Envío</th>
+                            <th style="padding: 12px;">Total Pagado</th>
+                            <th style="padding: 12px; text-align: center;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaMisPedidosCuerpo" style="font-size: 14px; color: #334155;">
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div> 
+
+    <div id="modalRastreoCliente" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(2px);">
+        <div style="background: white; padding: 25px; border-radius: 16px; width: 90%; max-width: 440px; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #f1f5f9; padding-bottom: 12px; margin-bottom: 20px;">
+                <div>
+                    <h3 style="margin: 0; color: #1e293b; font-size: 18px;"><i class="fa-solid fa-route" style="color:#10b981;"></i> Seguimiento de Envío</h3>
+                    <div style="font-size: 13px; color: #64748b; margin-top: 4px; font-weight: bold;" id="lblRastreoFolioCliente">PED-0000</div>
+                </div>
+                <button id="btnCerrarRastreoCliente" style="background: #f1f5f9; border: none; font-size: 18px; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; color: #64748b; display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div id="contenedorTimelineCliente" style="position: relative; padding-left: 25px; border-left: 3px solid #e2e8f0; margin-left: 10px;">
+            </div>
+        </div>
+    </div>
+
+    <div id="modalCalificacion" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(2px);">
+        <div style="background: white; padding: 30px; border-radius: 16px; width: 90%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+            <div style="text-align: center; margin-bottom: 20px;">
+                <i class="fa-solid fa-star" style="font-size: 40px; color: #fbbf24; margin-bottom: 10px;"></i>
+                <h3 style="margin: 0; color: #1e293b; font-size: 20px;">¡Evalúa tu entrega!</h3>
+                <p style="color: #64748b; font-size: 14px; margin-top: 5px;">Folio: <span id="lblCalificarFolio" style="font-weight: bold;"></span></p>
+            </div>
+
+            <form id="formCalificacion" style="display: flex; flex-direction: column; gap: 15px;">
+                <input type="hidden" id="calif_id_pedido">
+
+                <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 10px 15px; border-radius: 8px;">
+                    <span style="font-weight: 600; color: #334155; font-size: 14px;">⏱️ Tiempo de entrega</span>
+                    <div class="stars-container">
+                        <input type="radio" id="t5" name="calif_tiempo" value="5" required><label for="t5" title="5 estrellas"><i class="fa-solid fa-star"></i></label>
+                        <input type="radio" id="t4" name="calif_tiempo" value="4"><label for="t4" title="4 estrellas"><i class="fa-solid fa-star"></i></label>
+                        <input type="radio" id="t3" name="calif_tiempo" value="3"><label for="t3" title="3 estrellas"><i class="fa-solid fa-star"></i></label>
+                        <input type="radio" id="t2" name="calif_tiempo" value="2"><label for="t2" title="2 estrellas"><i class="fa-solid fa-star"></i></label>
+                        <input type="radio" id="t1" name="calif_tiempo" value="1"><label for="t1" title="1 estrella"><i class="fa-solid fa-star"></i></label>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 10px 15px; border-radius: 8px;">
+                    <span style="font-weight: 600; color: #334155; font-size: 14px;">🤝 Servicio / Amabilidad</span>
+                    <div class="stars-container">
+                        <input type="radio" id="s5" name="calif_servicio" value="5" required><label for="s5"><i class="fa-solid fa-star"></i></label>
+                        <input type="radio" id="s4" name="calif_servicio" value="4"><label for="s4"><i class="fa-solid fa-star"></i></label>
+                        <input type="radio" id="s3" name="calif_servicio" value="3"><label for="s3"><i class="fa-solid fa-star"></i></label>
+                        <input type="radio" id="s2" name="calif_servicio" value="2"><label for="s2"><i class="fa-solid fa-star"></i></label>
+                        <input type="radio" id="s1" name="calif_servicio" value="1"><label for="s1"><i class="fa-solid fa-star"></i></label>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 10px 15px; border-radius: 8px;">
+                    <span style="font-weight: 600; color: #334155; font-size: 14px;">📦 Calidad del Producto</span>
+                    <div class="stars-container">
+                        <input type="radio" id="c5" name="calif_calidad" value="5" required><label for="c5"><i class="fa-solid fa-star"></i></label>
+                        <input type="radio" id="c4" name="calif_calidad" value="4"><label for="c4"><i class="fa-solid fa-star"></i></label>
+                        <input type="radio" id="c3" name="calif_calidad" value="3"><label for="c3"><i class="fa-solid fa-star"></i></label>
+                        <input type="radio" id="c2" name="calif_calidad" value="2"><label for="c2"><i class="fa-solid fa-star"></i></label>
+                        <input type="radio" id="c1" name="calif_calidad" value="1"><label for="c1"><i class="fa-solid fa-star"></i></label>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <label style="font-weight: 600; font-size: 13px; color: #475569;">Comentarios adicionales (Opcional)</label>
+                    <textarea id="calif_comentario" placeholder="¿Cómo podemos mejorar?" style="padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; resize: none; height: 60px; font-family: sans-serif; font-size: 13px;"></textarea>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button type="button" id="btnCancelarCalificacion" style="flex: 1; padding: 12px; border: 1px solid #cbd5e1; background: #f1f5f9; color: #475569; border-radius: 8px; font-weight: bold; cursor: pointer;">Cancelar</button>
+                    <button type="submit" style="flex: 1; padding: 12px; background: #165b1c; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">Enviar Evaluación</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../PUBLIC/js/misPedidosC.js"></script>
+    <script src="../PUBLIC/js/seguridad.js"></script>
+</body>
+</html>
